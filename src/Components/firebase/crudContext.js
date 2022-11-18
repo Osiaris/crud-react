@@ -2,15 +2,20 @@ import React, { useContext, useState, useEffect } from 'react';
 import { getDatabase, push, ref, set, child, get } from 'firebase/database';
 
 const CardData = React.createContext();
-const UpdateCardData = React.createContext();
+const CreateCardData = React.createContext();
+const EditCardData = React.createContext();
 
 
 export const useCardData = () => {
     return useContext(CardData);
 };
 
+export const useEditCardData = () => {
+   return useContext(EditCardData);
+};
+
 export const useUpdateCardData = () => {
-    return useContext(UpdateCardData);
+    return useContext(CreateCardData);
 };
 
 export const CardDataContext = ({ children }) => {
@@ -33,9 +38,9 @@ export const CardDataContext = ({ children }) => {
     const fetchDB = async () => {
         try {
             const dbRef = ref(getDatabase());
-            const snapshot = await get(child(dbRef, 'test5/'));
+            const snapshot = await get(child(dbRef, 'A/'));
             if (snapshot.exists()) {
-                setCurrentData(Object.values(snapshot.val()));
+                setCurrentData(Object.values(snapshot.val()).reverse());
             } else {
                 return [];
             }
@@ -50,9 +55,9 @@ export const CardDataContext = ({ children }) => {
 
     return (
         <CardData.Provider value={currentData}>
-            <UpdateCardData.Provider value={appendToDB}>
+            <CreateCardData.Provider value={appendToDB}>
                 {children}
-            </UpdateCardData.Provider>
+            </CreateCardData.Provider>
         </CardData.Provider>
     );
 };
