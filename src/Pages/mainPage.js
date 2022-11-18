@@ -1,5 +1,5 @@
 import '../Assets/bootstrap.min.css';
-import CardList from '../Components/cardlist';
+import CardList from '../Components/cardList';
 import { useUpdateCardData } from '../Components/firebase/crudContext';
 
 const MainPage = () => {
