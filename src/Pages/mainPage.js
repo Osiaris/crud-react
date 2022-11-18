@@ -1,18 +1,21 @@
 import '../Assets/bootstrap.min.css';
-import { fetchData, appendToDB } from '../Components/firebase/crud'
 import CardList from '../Components/cardlist';
-
+import { useUpdateCardData } from '../Components/firebase/crudContext';
 
 const MainPage = () => {
+    const updateCardData = useUpdateCardData();
+    const test = () => {
+        updateCardData('TestTitel', 'TestText');
+    };
 
     return (
         <div className="container bg-light border py-4 text-center">
             <h2>CRUD - Create, Read, Update, Delete</h2>
-            <button onClick={appendToDB}>Write</button>
-            <button onClick={fetchData}>Fetch</button>
+            <button onClick={test} >Write</button>
+            <button >Fetch</button>
             <CardList />
         </div>
     );
-}
+};
 
 export default MainPage;
