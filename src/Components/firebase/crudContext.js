@@ -1,17 +1,30 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { getDatabase, push, ref, set, child, get } from 'firebase/database';
+import {
+    getDatabase,
+    push,
+    ref,
+    set,
+    child,
+    get,
+    update,
+    remove,
+} from 'firebase/database';
 
 const CardData = React.createContext();
 const CreateCardData = React.createContext();
 const EditCardData = React.createContext();
+const RemoveCard = React.createContext();
 
+export const useRemoveCard = () => {
+    return useContext(RemoveCard);
+};
 
 export const useCardData = () => {
     return useContext(CardData);
 };
 
 export const useEditCardData = () => {
-   return useContext(EditCardData);
+    return useContext(EditCardData);
 };
 
 export const useUpdateCardData = () => {
@@ -23,7 +36,7 @@ export const CardDataContext = ({ children }) => {
 
     const appendToDB = (title, post) => {
         const db = getDatabase();
-        const postListRef = ref(db, 'A');
+        const postListRef = ref(db, 'cards');
         const newPostRef = push(postListRef);
         const data = {
             title: title,
@@ -38,7 +51,7 @@ export const CardDataContext = ({ children }) => {
     const fetchDB = async () => {
         try {
             const dbRef = ref(getDatabase());
-            const snapshot = await get(child(dbRef, 'A/'));
+            const snapshot = await get(child(dbRef, 'cards/'));
             if (snapshot.exists()) {
                 setCurrentData(Object.values(snapshot.val()).reverse());
             } else {
@@ -49,6 +62,24 @@ export const CardDataContext = ({ children }) => {
         }
     };
 
+    const editCardData = ({ target }) => {
+        const db = getDatabase();
+        const dbRef = ref(db, `cards/${target.parentNode.id}`);
+        update(dbRef, { bajs: 'korv' })
+            .then(() => {
+                console.log('Data updated');
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    };
+
+    const removeCard = ({ target }) => {
+      const db = getDatabase();
+      const dbRef = ref(db, `cards/${target.parentNode.id}`)
+      remove(dbRef);
+    }
+
     useEffect(() => {
         fetchDB();
     }, []);
@@ -56,7 +87,11 @@ export const CardDataContext = ({ children }) => {
     return (
         <CardData.Provider value={currentData}>
             <CreateCardData.Provider value={appendToDB}>
-                {children}
+                <EditCardData.Provider value={editCardData}>
+                    <RemoveCard.Provider value={removeCard}>
+                        {children}
+                    </RemoveCard.Provider>
+                </EditCardData.Provider>
             </CreateCardData.Provider>
         </CardData.Provider>
     );
