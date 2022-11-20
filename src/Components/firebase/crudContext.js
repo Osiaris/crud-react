@@ -77,7 +77,6 @@ export const CardDataContext = ({ children }) => {
     };
 
     const removeCard = (id) => {
-      console.log(`Skickat med ID: ${id}`);
         const db = getDatabase();
         const dbRef = ref(db, `cards/${id}`);
         remove(dbRef);
