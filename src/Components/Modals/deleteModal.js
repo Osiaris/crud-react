@@ -1,6 +1,6 @@
 import '../../Assets/bootstrap.min.css';
 import Modal from 'react-modal';
-import { useRemoveCard } from '../Firebase/crudContext';
+import { useRemoveCard } from '../Firebase/crudFirebase';
 
 const DeleteModal = (props) => {
     const removeCard = useRemoveCard();

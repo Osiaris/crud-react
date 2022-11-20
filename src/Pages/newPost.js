@@ -1,5 +1,5 @@
 import '../Assets/bootstrap.min.css';
-import { useUpdateCardData } from '../Components/Firebase/crudContext';
+import { useUpdateCardData } from '../Components/Firebase/crudFirebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ const NewPost = () => {
     const [title, setTitle] = useState('');
     const [post, setPost] = useState('');
     const [name, setName] = useState('');
-
+ 
     const updateCardData = useUpdateCardData();
     const navigate = useNavigate();
 

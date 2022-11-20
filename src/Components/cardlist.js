@@ -1,5 +1,5 @@
 import '../Assets/bootstrap.min.css';
-import { useCardData } from './Firebase/crudContext';
+import { useCardData } from './Firebase/crudFirebase';
 import Card from './card';
 
 const CardList = () => {

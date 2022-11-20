@@ -1,7 +1,7 @@
 import '../../Assets/bootstrap.min.css';
 import Modal from 'react-modal';
 import { useState } from 'react';
-import { useEditCardData } from '../Firebase/crudContext';
+import { useEditCardData } from '../Firebase/crudFirebase';
 
 const ChangeModal = (props) => {
     const [title, setTitle] = useState(props.cardProps.props.title);
