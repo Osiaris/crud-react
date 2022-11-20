@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDXxealUVieHq31r4xedNRe5A3VfndGN50",
-  authDomain: "crud-6d4de.firebaseapp.com",
-  databaseURL: "https://crud-6d4de-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "crud-6d4de",
-  storageBucket: "crud-6d4de.appspot.com",
-  messagingSenderId: "567516069508",
-  appId: "1:567516069508:web:d19bccb89e94b42da34cd1"
+  apiKey: `${process.env.REACT_APP_FIREBASE_API}`,
+  authDomain: `${process.env.REACT_APP_FIREBASE_AUTHDOMAIN}`,
+  databaseURL: `${process.env.REACT_APP_FIREBASE_DBURL}`,
+  projectId: `${process.env.REACT_APP_FIREBASE_ID}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_BUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_FIREBASE_SENDERID}`,
+  appId: `${process.env.REACT_APP_FIREBASE_APPID}`
 };
 
 // Initialize Firebase
