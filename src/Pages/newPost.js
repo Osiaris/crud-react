@@ -39,7 +39,7 @@ const NewPost = () => {
                 <br />
                 <label className="mt-2" htmlFor="post">
                     Inlägg:
-                </label>{' '}
+                </label>
                 <br />
                 <textarea
                     className="mt-2"
@@ -53,7 +53,7 @@ const NewPost = () => {
                 <br />
                 <label className="mt-2" htmlFor="name">
                     Signatur (valfritt):
-                </label>{' '}
+                </label>
                 <br />
                 <input
                     className="mt-2"

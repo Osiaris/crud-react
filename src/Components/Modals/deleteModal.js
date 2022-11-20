@@ -12,10 +12,19 @@ const DeleteModal = (props) => {
             onRequestClose={() => props.setModalIsOpen(false)}>
             <div>
                 <h2>{`Är du säker?`}</h2>
-                <button onClick={() => props.setModalIsOpen(false)} className="mx-2 btn btn-secondary" type="submit">
+                <button
+                    onClick={() => props.setModalIsOpen(false)}
+                    className="mx-2 btn btn-secondary"
+                    type="submit">
                     Avbryt
                 </button>
-                <button onClick={() => {removeCard(props.id); props.setModalIsOpen(false)}} className="mx-2 btn btn-danger" type="submit">
+                <button
+                    onClick={() => {
+                        removeCard(props.id);
+                        props.setModalIsOpen(false);
+                    }}
+                    className="mx-2 btn btn-danger"
+                    type="submit">
                     Ta bort
                 </button>
             </div>

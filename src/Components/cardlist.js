@@ -8,11 +8,18 @@ const CardList = () => {
     return (
         <>
             {cardData.map((post, idx) => {
-                return <Card key={idx} id={post.id} title={post.title} content={post.post} author={post.author} />;
-            }
-            )}
+                return (
+                    <Card
+                        key={idx}
+                        id={post.id}
+                        title={post.title}
+                        content={post.post}
+                        author={post.author}
+                    />
+                );
+            })}
         </>
     );
 };
- 
+
 export default CardList;
