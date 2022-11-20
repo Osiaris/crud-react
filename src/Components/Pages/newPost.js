@@ -1,5 +1,5 @@
-import '../Assets/bootstrap.min.css';
-import { useUpdateCardData } from '../Components/Firebase/crudFirebase';
+import '../../Assets/bootstrap.min.css';
+import { useUpdateCardData } from '../FirebaseConfig/crudFirebase';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

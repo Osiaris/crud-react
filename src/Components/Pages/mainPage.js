@@ -1,5 +1,5 @@
-import '../Assets/bootstrap.min.css';
-import CardList from '../Components/cardList';
+import '../../Assets/bootstrap.min.css';
+import CardList from '../cardList';
 
 const MainPage = () => {
     return (
