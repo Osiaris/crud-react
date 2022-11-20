@@ -1,30 +1,33 @@
-import '../Assets/bootstrap.min.css';
-import { useUpdateCardData } from '../Components/Firebase/crudContext';
+import '../../Assets/bootstrap.min.css';
+import Modal from 'react-modal';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEditCardData } from '../Firebase/crudContext';
 
-const NewPost = () => {
-    const [title, setTitle] = useState('');
-    const [post, setPost] = useState('');
-    const [name, setName] = useState('');
+const ChangeModal = (props) => {
+    const [title, setTitle] = useState(props.cardProps.props.title);
+    const [post, setPost] = useState(props.cardProps.props.content);
+    const [name, setName] = useState(props.cardProps.props.author);
 
-    const updateCardData = useUpdateCardData();
-    const navigate = useNavigate();
+    const editCardData = useEditCardData();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const postData = {
             title: title,
             post: post,
+            id: props.cardProps.props.id,
             author: name,
-        };
-        updateCardData(postData);
-        navigate('/');
+        }
+        editCardData(postData, props.cardProps.props.id);
+        props.setModalIsOpen(false);
     };
-
+    Modal.setAppElement('#root');
     return (
-        <div className="container bg-light border py-4 text-center">
-            <h2>Skapa nytt inlägg</h2>
+        <Modal
+            isOpen={props.modalIsOpen}
+            onRequestClose={() => props.setModalIsOpen(false)}>
+            <h2>{`Ändr datan i inlägg med ID: ${props.cardProps.props.id}!`}</h2>
+            <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Titel:</label> <br />
                 <input
@@ -37,10 +40,7 @@ const NewPost = () => {
                     required
                 />
                 <br />
-                <label className="mt-2" htmlFor="post">
-                    Inlägg:
-                </label>{' '}
-                <br />
+                <label className="mt-2"  htmlFor="post">Inlägg:</label> <br />
                 <textarea
                     className="mt-2"
                     name="post"
@@ -51,10 +51,7 @@ const NewPost = () => {
                     cols="50"
                     maxLength="200"></textarea>
                 <br />
-                <label className="mt-2" htmlFor="name">
-                    Signatur (valfritt):
-                </label>{' '}
-                <br />
+                <label className="mt-2" htmlFor="name">Signatur (valfritt):</label> <br />
                 <input
                     className="mt-2"
                     value={name}
@@ -64,12 +61,15 @@ const NewPost = () => {
                     name="name"
                 />
                 <br />
+                <button onClick={() => props.setModalIsOpen(false)} className="mt-2 me-2 btn btn-secondary" type="submit">
+                    Avbryt
+                </button>
                 <button className="mt-2 btn btn-success" type="submit">
-                    Submit
+                    Ändra
                 </button>
             </form>
-        </div>
+            </div>
+        </Modal>
     );
 };
-
-export default NewPost;
+export default ChangeModal;

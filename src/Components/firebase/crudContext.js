@@ -33,19 +33,20 @@ export const useUpdateCardData = () => {
 
 export const CardDataContext = ({ children }) => {
     const [currentData, setCurrentData] = useState([]);
+    const [rerender, setRerender] = useState(true);
 
-    const appendToDB = (title, post) => {
+    const appendToDB = (newPost) => {
         const db = getDatabase();
         const postListRef = ref(db, 'cards');
         const newPostRef = push(postListRef);
         const data = {
-            title: title,
-            post: post,
+            title: newPost.title,
+            post: newPost.post,
             id: newPostRef.key,
+            author: newPost.author
         };
         set(newPostRef, data);
         setCurrentData((prev) => [data, ...prev]);
-        return data;
     };
 
     const fetchDB = async () => {
@@ -62,27 +63,34 @@ export const CardDataContext = ({ children }) => {
         }
     };
 
-    const editCardData = ({ target }) => {
+    const editCardData = (edits, id) => {
         const db = getDatabase();
-        const dbRef = ref(db, `cards/${target.parentNode.id}`);
-        update(dbRef, { bajs: 'korv' })
+        const testref = `cards/${id}`
+        const dbRef = ref(db, testref);
+        update(dbRef, {...edits})
             .then(() => {
-                console.log('Data updated');
+               setRerender(!rerender);
             })
-            .catch((e) => {
-                console.log(e);
+            .catch((error) => {
+                console.error(error);
             });
     };
 
-    const removeCard = ({ target }) => {
-      const db = getDatabase();
-      const dbRef = ref(db, `cards/${target.parentNode.id}`)
-      remove(dbRef);
-    }
+    const removeCard = (id) => {
+      console.log(`Skickat med ID: ${id}`);
+        const db = getDatabase();
+        const dbRef = ref(db, `cards/${id}`);
+        remove(dbRef);
+        setRerender(!rerender);
+    };
 
     useEffect(() => {
         fetchDB();
     }, []);
+
+    useEffect(() => {
+      fetchDB();
+  }, [rerender]);
 
     return (
         <CardData.Provider value={currentData}>
