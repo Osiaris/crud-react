@@ -2,8 +2,8 @@ import React from 'react';
 import Header from './Components/header';
 import MainPage from './Pages/mainPage';
 import NewPost from './Pages/newPost';
-import { CardDataContext } from './Components/Firebase/crudFirebase';
-import { database } from './Components/Firebase/config';
+import { CardDataContext } from './Components/FirebaseConfig/crudFirebase';
+import { database } from './Components/FirebaseConfig/config';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
