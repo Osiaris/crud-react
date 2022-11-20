@@ -63,18 +63,17 @@ export const CardDataContext = ({ children }) => {
         }
     };
 
-    const editCardData = (edits, id) => {
-        const db = getDatabase();
-        const testref = `cards/${id}`
-        const dbRef = ref(db, testref);
-        update(dbRef, {...edits})
-            .then(() => {
-               setRerender(!rerender);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
+    const editCardData = async (edits, id) => {
+        try {
+         const db = getDatabase();
+         const testref = `cards/${id}`
+         const dbRef = ref(db, testref);
+         await update(dbRef, {...edits})
+         setRerender(!rerender);
+       } catch(error) {
+         alert(error);
+       }
+      }
 
     const removeCard = (id) => {
         const db = getDatabase();
@@ -82,10 +81,6 @@ export const CardDataContext = ({ children }) => {
         remove(dbRef);
         setRerender(!rerender);
     };
-
-    useEffect(() => {
-        fetchDB();
-    }, []);
 
     useEffect(() => {
       fetchDB();
