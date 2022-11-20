@@ -15,11 +15,11 @@ const CardList = () => {
                         title={post.title}
                         content={post.post}
                         author={post.author}
-                    />
+                    /> 
                 );
             })}
         </>
-    );
+    ); 
 };
 
 export default CardList;
